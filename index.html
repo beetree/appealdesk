@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AppealDesk</title>
-    <meta name="description" content="Dispute, appeal, and case-handling operations.">
+    <meta name="description" content="AppealDesk helps with SFMTA parking citation disputes. No upfront fee. You only pay if your ticket is dismissed or your fine is reduced.">
     <style>
       :root {
         --bg: #f5f1e8;
@@ -26,18 +26,23 @@
           var(--bg);
       }
       main {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 32px;
+        width: min(980px, 100%);
+        margin: 0 auto;
+        padding: 32px 20px 80px;
       }
-      .card {
-        width: min(760px, 100%);
+      .hero, .section {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 24px;
+        box-shadow: 0 24px 80px rgba(27, 26, 24, 0.08);
+      }
+      .hero {
         padding: 40px;
-        box-shadow: 0 24px 80px rgba(27, 26, 24, 0.10);
+        margin-bottom: 24px;
+      }
+      .section {
+        padding: 28px;
+        margin-top: 20px;
       }
       .eyebrow {
         margin: 0 0 12px;
@@ -53,12 +58,41 @@
         line-height: 0.96;
         letter-spacing: -0.04em;
       }
+      h2 {
+        margin: 0 0 14px;
+        font-size: 28px;
+        line-height: 1.1;
+      }
       p {
-        margin: 20px 0 0;
-        max-width: 58ch;
+        margin: 18px 0 0;
         color: var(--muted);
-        font-size: 19px;
+        font-size: 18px;
         line-height: 1.6;
+      }
+      .lede {
+        max-width: 60ch;
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 28px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 14px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--text);
+        text-decoration: none;
+        color: var(--surface);
+        background: var(--text);
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .btn.secondary {
+        color: var(--text);
+        background: transparent;
+        border-color: var(--border);
       }
       .status {
         display: inline-flex;
@@ -78,33 +112,103 @@
         border-radius: 50%;
         background: currentColor;
       }
-      .footer {
-        margin-top: 32px;
-        padding-top: 24px;
-        border-top: 1px solid var(--border);
-        font-size: 15px;
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+      ul, ol {
+        margin: 14px 0 0;
+        padding-left: 22px;
         color: var(--muted);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+      li + li {
+        margin-top: 8px;
+      }
+      .footer {
+        margin-top: 28px;
+        padding-top: 22px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 15px;
       }
       a { color: inherit; }
-      @media (max-width: 640px) {
-        .card {
-          padding: 28px;
-          border-radius: 18px;
-        }
-        p { font-size: 17px; }
+      strong { color: var(--text); }
+      @media (max-width: 760px) {
+        .hero, .section { padding: 24px; border-radius: 18px; }
+        .grid { grid-template-columns: 1fr; }
+        p, ul, ol { font-size: 17px; }
       }
     </style>
   </head>
   <body>
     <main>
-      <section class="card">
-        <p class="eyebrow">LEET Group</p>
-        <h1>AppealDesk</h1>
-        <p>Dispute, appeal, and case-handling operations.</p>
-        <div class="status"><span class="dot"></span> Initial site setup in progress</div>
-        <div class="footer">
-          Questions: <a href="mailto:info@leetgroup.net">info@leetgroup.net</a>
+      <section class="hero">
+        <p class="eyebrow">AppealDesk</p>
+        <h1>We help fight SFMTA parking tickets.</h1>
+        <p class="lede">Email us your San Francisco parking citation and any supporting photos or receipts. Jennifer reviews whether your case fits our current scope and handles the first-level dispute workflow where the process allows.</p>
+        <p><strong>No upfront fee. You only pay if your ticket is dismissed or your fine is reduced.</strong></p>
+        <div class="cta-row">
+          <a class="btn" href="mailto:info@leetgroup.net?subject=SFMTA%20parking%20ticket%20review">Email your ticket</a>
+          <a class="btn secondary" href="mailto:info@leetgroup.net">Ask a question</a>
         </div>
+        <div class="status"><span class="dot"></span> Current launch scope: SFMTA parking citation disputes only</div>
+        <div class="footer">Questions: <a href="mailto:info@leetgroup.net">info@leetgroup.net</a></div>
+      </section>
+
+      <section class="section">
+        <h2>How It Works</h2>
+        <ol>
+          <li>Email your ticket notice, a short explanation, and any supporting photos, permits, or receipts.</li>
+          <li>Jennifer reviews whether the case fits AppealDesk's current scope.</li>
+          <li>If the case is a fit, AppealDesk prepares and handles the first-level dispute workflow where allowed.</li>
+          <li>You only pay if the ticket is dismissed or the fine is reduced.</li>
+        </ol>
+      </section>
+
+      <div class="grid">
+        <section class="section">
+          <h2>What We Handle</h2>
+          <ul>
+            <li>SFMTA parking citations</li>
+            <li>Current notices with enough time to respond</li>
+            <li>Cases with evidence such as photos, permits, receipts, or signage detail</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>What We Do Not Handle</h2>
+          <ul>
+            <li>Moving violations</li>
+            <li>Court-required matters</li>
+            <li>Private parking tickets</li>
+            <li>Towing or boot disputes</li>
+            <li>Old cases already deep in collections</li>
+            <li>Tickets outside the SFMTA parking workflow</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="section">
+        <h2>What Counts As Success</h2>
+        <ul>
+          <li>Your ticket is dismissed</li>
+          <li>Your fine is reduced</li>
+        </ul>
+        <p>AppealDesk does not bill for intake, review, filing, or a case that is still under review.</p>
+      </section>
+
+      <section class="section">
+        <h2>What To Send</h2>
+        <ul>
+          <li>A photo or PDF of the ticket notice</li>
+          <li>Your full name</li>
+          <li>Your best email and phone number</li>
+          <li>A short explanation of what happened</li>
+          <li>Any supporting photos, permits, or receipts</li>
+        </ul>
       </section>
     </main>
   </body>
