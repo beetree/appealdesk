@@ -3,213 +3,634 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AppealDesk</title>
-    <meta name="description" content="AppealDesk helps with SFMTA parking citation disputes. No upfront fee. You only pay if your ticket is dismissed or your fine is reduced.">
+    <title>AppealDesk — SFMTA Parking Ticket Help (Pay Only on Success)</title>
+    <meta name="description" content="Email your San Francisco parking citation. We handle the first-level dispute. No upfront fee — pay $49 only if your ticket is dismissed, or $25 if your fine is reduced.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:title" content="AppealDesk — SFMTA Parking Ticket Help">
+    <meta property="og:description" content="Email your SFMTA parking ticket. We file the dispute. Pay only if it's dismissed or your fine is reduced.">
+    <meta property="og:url" content="http://appealdesk.leetgroup.net">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="http://appealdesk.leetgroup.net/">
     <style>
       :root {
-        --bg: #f5f1e8;
-        --surface: #fffdf8;
-        --text: #1b1a18;
-        --muted: #635d55;
-        --accent: #0f766e;
-        --accent-2: #9a3412;
-        --border: #d9d1c4;
+        --bg: #f4efe5;
+        --bg-2: #ece6d8;
+        --surface: #ffffff;
+        --surface-2: #fbf8f1;
+        --text: #1a1916;
+        --muted: #5e574d;
+        --soft: #8a8378;
+        --accent: #0e6a63;
+        --accent-soft: rgba(14, 106, 99, 0.10);
+        --warn: #b54708;
+        --warn-soft: #fff4e6;
+        --warn-border: #f7d9b5;
+        --border: #d8d0bf;
+        --border-soft: #e8e1d0;
+        --shadow-sm: 0 1px 2px rgba(26, 25, 22, 0.04), 0 1px 3px rgba(26, 25, 22, 0.06);
+        --shadow-lg: 0 30px 80px -30px rgba(26, 25, 22, 0.30), 0 10px 30px -15px rgba(26, 25, 22, 0.10);
       }
       * { box-sizing: border-box; }
+      html, body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
       body {
         margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
+        font-family: Charter, "Iowan Old Style", "Source Serif Pro", Georgia, Cambria, "Times New Roman", serif;
         color: var(--text);
         background:
-          radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28%),
-          radial-gradient(circle at bottom right, rgba(154, 52, 18, 0.12), transparent 30%),
+          radial-gradient(900px 500px at 0% -10%, rgba(14, 106, 99, 0.10), transparent 60%),
+          radial-gradient(800px 500px at 100% 0%, rgba(181, 71, 8, 0.08), transparent 55%),
           var(--bg);
+        line-height: 1.55;
       }
-      main {
-        width: min(980px, 100%);
-        margin: 0 auto;
-        padding: 32px 20px 80px;
+      .ui {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        letter-spacing: 0.01em;
       }
-      .hero, .section {
+      main { width: min(1040px, 100%); margin: 0 auto; padding: 28px 22px 96px; }
+
+      /* Top bar */
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+      }
+      .brand {
+        font-family: Charter, Georgia, serif;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .brand-mark {
+        display: inline-block;
+        width: 10px; height: 10px;
+        border-radius: 2px;
+        background: var(--accent);
+        margin-right: 10px;
+        transform: translateY(-2px);
+      }
+      .topbar-meta {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* Hero */
+      .hero {
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 24px;
-        box-shadow: 0 24px 80px rgba(27, 26, 24, 0.08);
+        border-radius: 22px;
+        padding: 48px 44px 44px;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
       }
-      .hero {
-        padding: 40px;
-        margin-bottom: 24px;
-      }
-      .section {
-        padding: 28px;
-        margin-top: 20px;
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: -120px; top: -80px;
+        width: 360px; height: 360px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(14, 106, 99, 0.10), transparent 70%);
+        pointer-events: none;
       }
       .eyebrow {
-        margin: 0 0 12px;
-        color: var(--accent-2);
-        font-size: 14px;
+        margin: 0 0 14px;
+        color: var(--accent);
+        font-size: 13px;
         font-weight: 700;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
       }
       h1 {
         margin: 0;
-        font-size: clamp(40px, 6vw, 72px);
-        line-height: 0.96;
-        letter-spacing: -0.04em;
-      }
-      h2 {
-        margin: 0 0 14px;
-        font-size: 28px;
-        line-height: 1.1;
-      }
-      p {
-        margin: 18px 0 0;
-        color: var(--muted);
-        font-size: 18px;
-        line-height: 1.6;
+        font-size: clamp(40px, 5.6vw, 64px);
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        max-width: 18ch;
       }
       .lede {
-        max-width: 60ch;
+        margin: 22px 0 0;
+        max-width: 56ch;
+        font-size: 19px;
+        color: var(--muted);
       }
-      .cta-row {
-        display: flex;
+      .price-line {
+        margin: 22px 0 0;
+        font-size: 18px;
+        color: var(--text);
+      }
+      .price-line strong { font-weight: 700; }
+      .price-pills {
+        display: inline-flex;
         flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 28px;
+        gap: 8px;
+        margin-left: 6px;
+        vertical-align: middle;
       }
-      .btn {
-        display: inline-block;
-        padding: 14px 18px;
+      .price-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
         border-radius: 999px;
-        border: 1px solid var(--text);
-        text-decoration: none;
-        color: var(--surface);
-        background: var(--text);
-        font-size: 16px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 13px;
         font-weight: 700;
       }
-      .btn.secondary {
-        color: var(--text);
-        background: transparent;
-        border-color: var(--border);
+
+      /* CTA */
+      .cta-wrap {
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
       }
-      .status {
+      .btn {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        margin-top: 24px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        background: rgba(15, 118, 110, 0.08);
-        color: var(--accent);
+        padding: 16px 24px;
+        border-radius: 14px;
+        text-decoration: none;
+        background: var(--text);
+        color: #fdfaf2;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.05s ease, box-shadow 0.15s ease;
+      }
+      .btn:hover { box-shadow: 0 6px 20px rgba(26, 25, 22, 0.18); }
+      .btn:active { transform: translateY(1px); }
+      .btn .arrow { transition: transform 0.15s ease; }
+      .btn:hover .arrow { transform: translateX(2px); }
+      .email-fallback {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
         font-size: 14px;
-        font-weight: 700;
-      }
-      .dot {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: currentColor;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-      }
-      ul, ol {
-        margin: 14px 0 0;
-        padding-left: 22px;
         color: var(--muted);
-        font-size: 18px;
-        line-height: 1.6;
       }
-      li + li {
-        margin-top: 8px;
+      .email-fallback code {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 14px;
+        background: var(--bg-2);
+        border: 1px solid var(--border-soft);
+        padding: 3px 8px;
+        border-radius: 6px;
+        color: var(--text);
+        user-select: all;
       }
-      .footer {
+
+      /* Trust strip */
+      .trust {
         margin-top: 28px;
         padding-top: 22px;
-        border-top: 1px solid var(--border);
-        color: var(--muted);
-        font-size: 15px;
+        border-top: 1px solid var(--border-soft);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px 28px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        color: var(--soft);
       }
-      a { color: inherit; }
-      strong { color: var(--text); }
-      @media (max-width: 760px) {
-        .hero, .section { padding: 24px; border-radius: 18px; }
-        .grid { grid-template-columns: 1fr; }
-        p, ul, ol { font-size: 17px; }
+      .trust span { display: inline-flex; align-items: center; gap: 8px; }
+      .trust span::before {
+        content: "";
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.7;
+      }
+
+      /* Deadline banner */
+      .deadline {
+        margin-top: 24px;
+        padding: 16px 20px;
+        background: var(--warn-soft);
+        border: 1px solid var(--warn-border);
+        border-radius: 14px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 14.5px;
+        color: var(--warn);
+      }
+      .deadline strong { color: var(--warn); }
+      .deadline-icon {
+        flex: 0 0 auto;
+        width: 20px; height: 20px;
+        border-radius: 50%;
+        background: var(--warn);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      /* Sections */
+      .section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 36px;
+        margin-top: 22px;
+        box-shadow: var(--shadow-sm);
+      }
+      .section h2 {
+        margin: 0 0 8px;
+        font-size: 26px;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+      }
+      .section .kicker {
+        margin: 0 0 18px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      .section p, .section li { color: var(--muted); font-size: 17.5px; }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+        margin-top: 22px;
+      }
+
+      /* Steps */
+      .steps {
+        list-style: none;
+        padding: 0;
+        margin: 22px 0 0;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .step {
+        background: var(--surface-2);
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        padding: 20px;
+      }
+      .step-num {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        text-transform: uppercase;
+      }
+      .step-title {
+        margin: 8px 0 6px;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .step-body { font-size: 15px; color: var(--muted); margin: 0; }
+
+      /* Pricing card */
+      .price-card {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .tier {
+        border: 1px solid var(--border-soft);
+        background: var(--surface-2);
+        border-radius: 14px;
+        padding: 22px 20px;
+      }
+      .tier .label {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      .tier .amount {
+        margin: 6px 0 6px;
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .tier .desc { font-size: 14.5px; color: var(--muted); margin: 0; }
+      .tier.success { border-color: rgba(14, 106, 99, 0.35); background: linear-gradient(180deg, var(--accent-soft), var(--surface-2)); }
+      .tier.success .amount { color: var(--accent); }
+      .tier.zero .amount { color: var(--text); }
+
+      /* In scope / out of scope */
+      .scope-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 22px; }
+      .scope { background: var(--surface-2); border: 1px solid var(--border-soft); border-radius: 14px; padding: 22px; }
+      .scope h3 { margin: 0 0 10px; font-size: 18px; }
+      .scope.yes h3 { color: var(--accent); }
+      .scope.no  h3 { color: var(--warn); }
+      .scope ul { padding-left: 22px; margin: 8px 0 0; }
+      .scope li { font-size: 15.5px; }
+
+      /* FAQ */
+      details.faq {
+        border-top: 1px solid var(--border-soft);
+        padding: 18px 0 18px;
+      }
+      details.faq:first-of-type { border-top: 0; padding-top: 0; }
+      details.faq[open] summary { color: var(--accent); }
+      details.faq summary {
+        cursor: pointer;
+        list-style: none;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        padding-right: 36px;
+        position: relative;
+      }
+      details.faq summary::-webkit-details-marker { display: none; }
+      details.faq summary::after {
+        content: "+";
+        position: absolute;
+        right: 0; top: 0;
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--soft);
+        transition: transform 0.15s ease;
+      }
+      details.faq[open] summary::after { content: "−"; color: var(--accent); }
+      details.faq p { margin-top: 10px; color: var(--muted); font-size: 16.5px; }
+
+      /* Final CTA */
+      .final {
+        margin-top: 22px;
+        background: linear-gradient(180deg, var(--surface), var(--surface-2));
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 40px;
+        text-align: center;
+      }
+      .final h2 { margin: 0 0 8px; font-size: 30px; letter-spacing: -0.01em; }
+      .final p { color: var(--muted); margin: 0 auto; max-width: 50ch; }
+      .final .cta-wrap { justify-content: center; margin-top: 26px; }
+
+      /* Footer */
+      .footer {
+        margin-top: 28px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        color: var(--soft);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        justify-content: space-between;
+      }
+      .footer a { color: var(--muted); }
+
+      a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+      a:hover { color: var(--text); }
+
+      @media (max-width: 880px) {
+        .hero { padding: 32px 26px 30px; }
+        .section, .final { padding: 26px; }
+        .grid-2, .scope-grid { grid-template-columns: 1fr; }
+        .steps { grid-template-columns: repeat(2, 1fr); }
+        .price-card { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 520px) {
+        .steps { grid-template-columns: 1fr; }
+        .topbar-meta { display: none; }
       }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "AppealDesk",
+      "url": "http://appealdesk.leetgroup.net",
+      "description": "AppealDesk handles first-level SFMTA parking citation disputes. No upfront fee. Customers pay only if the ticket is dismissed or the fine is reduced.",
+      "areaServed": {
+        "@type": "City",
+        "name": "San Francisco",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "serviceType": "SFMTA parking citation dispute filing",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Success fee — Ticket dismissed",
+          "price": "49.00",
+          "priceCurrency": "USD",
+          "description": "Charged only when SFMTA dismisses the citation."
+        },
+        {
+          "@type": "Offer",
+          "name": "Success fee — Fine reduced",
+          "price": "25.00",
+          "priceCurrency": "USD",
+          "description": "Charged only when SFMTA reduces the fine amount."
+        }
+      ],
+      "provider": {
+        "@type": "Organization",
+        "name": "AppealDesk",
+        "email": "info@leetgroup.net"
+      }
+    }
+    </script>
   </head>
   <body>
     <main>
-      <section class="hero">
-        <p class="eyebrow">AppealDesk</p>
-        <h1>We help fight SFMTA parking tickets.</h1>
-        <p class="lede">Email us your San Francisco parking citation and any supporting photos or receipts. Jennifer reviews whether your case fits our current scope and handles the first-level dispute workflow where the process allows.</p>
-        <p><strong>No upfront fee. You only pay if your ticket is dismissed or your fine is reduced.</strong></p>
-        <div class="cta-row">
-          <a class="btn" href="mailto:info@leetgroup.net?subject=SFMTA%20parking%20ticket%20review">Email your ticket</a>
-          <a class="btn secondary" href="mailto:info@leetgroup.net">Ask a question</a>
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark"></span>AppealDesk</div>
+        <div class="topbar-meta">San Francisco · SFMTA parking citations</div>
+      </header>
+
+      <section class="hero" aria-labelledby="hero-heading">
+        <p class="eyebrow">SFMTA Parking Ticket Help</p>
+        <h1 id="hero-heading">Fight your San Francisco parking ticket — pay only if we win.</h1>
+        <p class="lede">Email your SFMTA citation, a short explanation, and any photos or receipts. Jennifer reviews whether your case is workable and handles the first-level dispute on your behalf.</p>
+
+        <p class="price-line">
+          <strong>No upfront fee.</strong> You pay
+          <span class="price-pills">
+            <span class="price-pill">$49 if dismissed</span>
+            <span class="price-pill">$25 if reduced</span>
+            <span class="price-pill" style="background:transparent;color:var(--soft);border:1px solid var(--border-soft);">$0 otherwise</span>
+          </span>
+        </p>
+
+        <div class="cta-wrap">
+          <a class="btn" href="mailto:info@leetgroup.net?subject=SFMTA%20parking%20ticket%20review&amp;body=Hi%20Jennifer%2C%0A%0AHere%27s%20my%20SFMTA%20parking%20ticket%20for%20review.%0A%0AWhat%20happened%3A%0A%0AAttached%3A%20ticket%20notice%2C%20photos%2C%20receipts.%0A%0AThanks%2C">
+            Email Jennifer your ticket
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <span class="email-fallback ui">or copy: <code>info@leetgroup.net</code></span>
         </div>
-        <div class="status"><span class="dot"></span> Current launch scope: SFMTA parking citation disputes only</div>
-        <div class="footer">Questions: <a href="mailto:info@leetgroup.net">info@leetgroup.net</a></div>
+
+        <div class="deadline ui" role="note">
+          <span class="deadline-icon" aria-hidden="true">!</span>
+          <div><strong>SFMTA protests have a tight deadline.</strong> Most citations must be protested within 21 days of issuance. If your ticket is older than that, email anyway and we'll tell you fast whether anything can still be done.</div>
+        </div>
+
+        <div class="trust ui">
+          <span>San Francisco only</span>
+          <span>SFMTA parking citations only</span>
+          <span>Administrative help, not legal advice</span>
+          <span>Reply within one business day</span>
+        </div>
       </section>
 
       <section class="section">
-        <h2>How It Works</h2>
-        <ol>
-          <li>Email your ticket notice, a short explanation, and any supporting photos, permits, or receipts.</li>
-          <li>Jennifer reviews whether the case fits AppealDesk's current scope.</li>
-          <li>If the case is a fit, AppealDesk prepares and handles the first-level dispute workflow where allowed.</li>
-          <li>You only pay if the ticket is dismissed or the fine is reduced.</li>
+        <p class="kicker ui">How it works</p>
+        <h2>Four steps. Most of them are ours.</h2>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-num ui">Step 1</div>
+            <p class="step-title">You email your ticket</p>
+            <p class="step-body">A photo or PDF of the citation, a short note about what happened, and any photos, permits, or receipts that help.</p>
+          </li>
+          <li class="step">
+            <div class="step-num ui">Step 2</div>
+            <p class="step-title">We review for fit</p>
+            <p class="step-body">Jennifer replies within one business day with one of three answers: in scope, need more info, or out of scope.</p>
+          </li>
+          <li class="step">
+            <div class="step-num ui">Step 3</div>
+            <p class="step-title">We file the dispute</p>
+            <p class="step-body">For accepted cases we prepare and submit the first-level SFMTA protest, including any evidence you sent us.</p>
+          </li>
+          <li class="step">
+            <div class="step-num ui">Step 4</div>
+            <p class="step-title">You pay only on success</p>
+            <p class="step-body">If SFMTA dismisses your ticket, we send a $49 payment link. If your fine is reduced, $25. Otherwise nothing.</p>
+          </li>
         </ol>
       </section>
 
-      <div class="grid">
-        <section class="section">
-          <h2>What We Handle</h2>
-          <ul>
-            <li>SFMTA parking citations</li>
-            <li>Current notices with enough time to respond</li>
-            <li>Cases with evidence such as photos, permits, receipts, or signage detail</li>
-          </ul>
-        </section>
-
-        <section class="section">
-          <h2>What We Do Not Handle</h2>
-          <ul>
-            <li>Moving violations</li>
-            <li>Court-required matters</li>
-            <li>Private parking tickets</li>
-            <li>Towing or boot disputes</li>
-            <li>Old cases already deep in collections</li>
-            <li>Tickets outside the SFMTA parking workflow</li>
-          </ul>
-        </section>
-      </div>
-
-      <section class="section">
-        <h2>What Counts As Success</h2>
-        <ul>
-          <li>Your ticket is dismissed</li>
-          <li>Your fine is reduced</li>
-        </ul>
-        <p>AppealDesk does not bill for intake, review, filing, or a case that is still under review.</p>
+      <section class="section" id="pricing">
+        <p class="kicker ui">Pricing</p>
+        <h2>You only pay for outcomes — not for trying.</h2>
+        <p>We charge a flat success fee tied to the result SFMTA returns. Intake, review, drafting, filing, and follow-up are all included with no separate cost.</p>
+        <div class="price-card">
+          <div class="tier success">
+            <div class="label ui">If dismissed</div>
+            <div class="amount">$49</div>
+            <p class="desc">SFMTA cancels the citation. You owe nothing to the city, and a one-time $49 to AppealDesk.</p>
+          </div>
+          <div class="tier success">
+            <div class="label ui">If fine reduced</div>
+            <div class="amount">$25</div>
+            <p class="desc">SFMTA lowers the fine. You owe the reduced amount to the city, and a one-time $25 to AppealDesk.</p>
+          </div>
+          <div class="tier zero">
+            <div class="label ui">Anything else</div>
+            <div class="amount">$0</div>
+            <p class="desc">If SFMTA denies the protest, or the case is out of scope, you pay nothing.</p>
+          </div>
+        </div>
       </section>
 
       <section class="section">
-        <h2>What To Send</h2>
-        <ul>
-          <li>A photo or PDF of the ticket notice</li>
-          <li>Your full name</li>
-          <li>Your best email and phone number</li>
-          <li>A short explanation of what happened</li>
-          <li>Any supporting photos, permits, or receipts</li>
-        </ul>
+        <p class="kicker ui">Scope</p>
+        <h2>What we handle, and what we don't.</h2>
+        <p>We keep the service narrow on purpose so we can move fast and handle each case well. If your situation isn't a fit, we tell you within one business day.</p>
+        <div class="scope-grid">
+          <div class="scope yes">
+            <h3>What we handle</h3>
+            <ul>
+              <li>SFMTA parking citations issued in San Francisco</li>
+              <li>Notices that are still inside the protest window</li>
+              <li>Cases with at least one factual angle — meter receipt, permit, signage, plate or VIN error, duplicate billing</li>
+              <li>First-level (administrative) SFMTA protest</li>
+            </ul>
+          </div>
+          <div class="scope no">
+            <h3>What we don't handle</h3>
+            <ul>
+              <li>Moving violations, speeding, red-light camera, DUI</li>
+              <li>Any matter that requires a court appearance</li>
+              <li>Private parking lot or garage tickets</li>
+              <li>Tow, boot, or impound disputes</li>
+              <li>Old citations already deep in collections</li>
+              <li>Muni / transit fare citations (different SFMTA workflow)</li>
+            </ul>
+          </div>
+        </div>
       </section>
+
+      <section class="section">
+        <p class="kicker ui">What to send</p>
+        <h2>Five things in one email.</h2>
+        <ol style="padding-left: 22px; margin: 18px 0 0;">
+          <li><strong>The citation.</strong> A clear photo or PDF. Make sure the citation number, date, and amount are readable.</li>
+          <li><strong>What happened.</strong> A few sentences in plain English. Don't over-write it — just the facts.</li>
+          <li><strong>Evidence, if any.</strong> Sign photos, meter receipt, permit picture, time-stamped photos of the curb, or anything else that supports your version.</li>
+          <li><strong>Your name and a phone number.</strong> So we know who we're working with.</li>
+          <li><strong>Anything you've already done.</strong> If you already started a protest with SFMTA, tell us where it stands.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="faq">
+        <p class="kicker ui">Questions</p>
+        <h2>Common questions, fast answers.</h2>
+        <div style="margin-top: 18px;">
+          <details class="faq">
+            <summary>Is there really no upfront fee?</summary>
+            <p>Yes — really. We don't bill for intake, review, drafting, filing, or even SFMTA acknowledging the protest. The only billable events are <strong>dismissal</strong> ($49) and <strong>fine reduction</strong> ($25). If the protest is denied or the case is out of scope, you owe nothing.</p>
+          </details>
+          <details class="faq">
+            <summary>Do you guarantee my ticket will be dismissed?</summary>
+            <p>No. No honest service can. SFMTA protest officers decide each case based on the facts and evidence. We only take cases that have a plausible argument, and we tell you up front when a case is weak.</p>
+          </details>
+          <details class="faq">
+            <summary>How fast will you respond?</summary>
+            <p>Within one business day. The first reply tells you whether your case is in scope, what we need from you, and what happens next.</p>
+          </details>
+          <details class="faq">
+            <summary>Are you a law firm?</summary>
+            <p>No. AppealDesk is an administrative help service for SFMTA parking citation disputes. We don't provide legal advice or appear in court. If your situation needs a lawyer, we'll tell you and decline the case.</p>
+          </details>
+          <details class="faq">
+            <summary>What about tickets outside San Francisco?</summary>
+            <p>The current launch is SFMTA only. We don't handle Oakland, San Jose, Berkeley, Daly City, or anything outside the SFMTA workflow yet.</p>
+          </details>
+          <details class="faq">
+            <summary>What happens to my information?</summary>
+            <p>Anything you email us is used only to evaluate and file your dispute. We don't share it with anyone outside the service. If you'd rather we delete your records after the case closes, just say so in your email.</p>
+          </details>
+          <details class="faq">
+            <summary>What if my ticket is older than 21 days?</summary>
+            <p>Email anyway. SFMTA's first-level protest window is short, but some situations have other paths. We'll tell you in plain English whether anything can still be done.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="final" aria-labelledby="final-heading">
+        <p class="kicker ui" style="text-align:center;">Ready when you are</p>
+        <h2 id="final-heading">Send your ticket and we'll take it from there.</h2>
+        <p>One email. We'll tell you within one business day whether we can help.</p>
+        <div class="cta-wrap">
+          <a class="btn" href="mailto:info@leetgroup.net?subject=SFMTA%20parking%20ticket%20review&amp;body=Hi%20Jennifer%2C%0A%0AHere%27s%20my%20SFMTA%20parking%20ticket%20for%20review.%0A%0AWhat%20happened%3A%0A%0AAttached%3A%20ticket%20notice%2C%20photos%2C%20receipts.%0A%0AThanks%2C">
+            Email Jennifer your ticket
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <span class="email-fallback ui">or copy: <code>info@leetgroup.net</code></span>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>AppealDesk · SFMTA parking citation disputes · San Francisco, CA</div>
+        <div>Questions: <a href="mailto:info@leetgroup.net">info@leetgroup.net</a></div>
+      </footer>
     </main>
   </body>
 </html>
